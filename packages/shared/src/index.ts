@@ -1,6 +1,5 @@
 /**
  * @webapp-factory/shared — public entry point.
- * Re-exports all capability ports, shared types and helpers.
+ * Re-exports all capability ports and shared content types (ADR-W0).
  */
-// Ports are added in Issue #2 — placeholder export keeps this a valid module.
-export {};
+export * from "./cms/ports.js";
