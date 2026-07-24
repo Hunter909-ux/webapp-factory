@@ -3,10 +3,21 @@
  * EN landing page (/en/) — structural placeholder.
  * Agent 3 fills the real sections in Issue #24.
  */
+import { createOrganizationSchema, createWebSiteSchema } from "@webapp-factory/shared/seo";
 import Landing from "../../layouts/Landing.astro";
+
+const siteUrl = "https://patchworkheroes.de";
+const schema = [
+  createWebSiteSchema({
+    name: "Patchwork Heroes",
+    url: siteUrl,
+    description: "Clarity, strength and practical tools for patchwork families.",
+  }),
+  createOrganizationSchema({ name: "Patchwork Heroes", url: siteUrl }),
+];
 ---
 
-<Landing title="Patchwork Heroes" description="patchworkheroes.de — coming soon" lang="en">
+<Landing title="Patchwork Heroes" description="patchworkheroes.de — coming soon" lang="en" schema={schema}>
   <section class="flex min-h-screen items-center justify-center">
     <h1 class="text-4xl">Patchwork Heroes</h1>
   </section>

@@ -41,7 +41,7 @@ const xDefaultHref = new URL(
 const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, defaultLocale);
 ---
 
-<Base title={title} description={description} lang={lang}>
+<Base lang={lang}>
   <SEOHead
     slot="head"
     title={title}

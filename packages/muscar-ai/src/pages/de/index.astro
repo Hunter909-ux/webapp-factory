@@ -3,10 +3,21 @@
  * DE landing page (/de/) — structural placeholder.
  * Agent 2 fills the real sections in Issue #16.
  */
+import { createOrganizationSchema, createWebSiteSchema } from "@webapp-factory/shared/seo";
 import Landing from "../../layouts/Landing.astro";
+
+const siteUrl = "https://muscar.ai";
+const schema = [
+  createWebSiteSchema({
+    name: "muscar.ai",
+    url: siteUrl,
+    description: "Open-Source-Tools für Systemdenker.",
+  }),
+  createOrganizationSchema({ name: "muscar.ai", url: siteUrl }),
+];
 ---
 
-<Landing title="muscar.ai" description="muscar.ai — bald verfügbar" lang="de">
+<Landing title="muscar.ai" description="muscar.ai — bald verfügbar" lang="de" schema={schema}>
   <section class="flex min-h-screen items-center justify-center">
     <h1 class="text-4xl">muscar.ai</h1>
   </section>

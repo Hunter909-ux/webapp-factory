@@ -1,5 +1,7 @@
 /**
  * @webapp-factory/shared — public entry point.
- * Re-exports all capability ports and shared content types (ADR-W0).
+ * Re-exports capability ports, i18n helpers and SEO/AEO helpers.
  */
 export * from "./cms/ports.js";
+export * from "./i18n.js";
+export * from "./seo.js";

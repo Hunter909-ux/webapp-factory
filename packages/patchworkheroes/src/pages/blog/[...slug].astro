@@ -4,6 +4,7 @@
  * A synthetic "coming-soon" slug keeps the first SSG build from failing
  * when Ghost has no posts yet.
  */
+import { createArticleSchema } from "@webapp-factory/shared/seo";
 import Blog from "../../layouts/Blog.astro";
 import { cms } from "../../lib/cms";
 
@@ -21,9 +22,24 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const post = await cms.getPostBySlug(slug).catch(() => null);
+
+const site = Astro.site?.toString() ?? "https://patchworkheroes.de";
+const canonical = new URL(Astro.url.pathname, site).toString();
+const schema = post
+  ? [
+      createArticleSchema({
+        headline: post.title,
+        url: canonical,
+        author: "[AUTOR]",
+        publishedAt: post.published_at,
+        description: post.excerpt,
+        image: post.feature_image,
+      }),
+    ]
+  : [];
 ---
 
-<Blog title={post?.title ?? "Beitrag nicht gefunden"} description={post?.excerpt ?? ""} lang="de">
+<Blog title={post?.title ?? "Beitrag nicht gefunden"} description={post?.excerpt ?? ""} lang="de" schema={schema}>
   {
     post ? (
       <article class="prose py-12">

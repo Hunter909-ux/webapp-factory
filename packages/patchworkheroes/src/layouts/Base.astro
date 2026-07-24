@@ -1,22 +1,18 @@
 ---
 /**
  * Base layout — HTML shell shared by every page.
- * Brand identity comes exclusively from CSS custom properties (tokens.css).
- * SEOHead (Issue #6) plugs into the "head" slot.
+ * Title, description and SEO tags are handled by the SEOHead component
+ * inside the "head" slot (via Landing/Blog layouts).
  */
 import "../styles/base.css";
 
 interface Props {
-  /** Document title. */
-  title: string;
-  /** Meta description (optional). */
-  description?: string;
   /** BCP-47 language of the page content. */
   lang?: string;
 }
 
-const { title, description, lang = "de" } = Astro.props;
-/** patchworkheroes.de defaults to light mode ("Tagestakt", Design System §1). */
+const { lang = "de" } = Astro.props;
+/** patchworkheroes.de defaults to light mode. */
 const defaultTheme = "light";
 ---
 
@@ -25,8 +21,6 @@ const defaultTheme = "light";
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    {description && <meta name="description" content={description} />}
     <!-- Self-hosted font preloads (Issue #10) -->
     <link rel="preload" href="/fonts/dm-serif-display-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />

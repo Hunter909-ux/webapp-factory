@@ -4,7 +4,8 @@ import { defineConfig } from "astro/config";
 
 /**
  * patchworkheroes.de — Astro configuration (ADR-W1: pure SSG).
- * i18n: German is the primary language, English lives under /en/ (PRD 2.3).
+ * i18n: German is the primary language, English lives under /en/ (ADR PRD 2.3).
+ * Sitemap filters legal/noindex pages (Issue #12).
  */
 export default defineConfig({
   site: process.env.PUBLIC_SITE_URL ?? "https://patchworkheroes.de",
@@ -16,7 +17,14 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        return !pathname.includes("/impressum") && !pathname.includes("/datenschutz");
+      },
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
