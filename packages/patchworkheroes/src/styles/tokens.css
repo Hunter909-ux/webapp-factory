@@ -1,13 +1,34 @@
 /*
- * Brand tokens for patchworkheroes.de — INTENTIONALLY EMPTY.
- * Agent 3 fills these in Issue #22 (Deep Slate, Amber, DM Serif).
- * Semantic token names and neutral fallbacks live in the shared theme
- * (packages/shared/styles/theme.css). Every value defined here overrides
- * the neutral fallback for this brand only.
- *
- * Example (see BMAD Design System, section 3):
- * :root {
- *   --color-primary: ...;
- *   --font-heading: ...;
- * }
+ * Brand tokens for patchworkheroes.de — Agent 3 fills colors in Issue #22.
+ * Font definitions are already included here so the shared typography works.
  */
+
+/* --------------------------------------------------------------------------
+ * Font faces — self-hosted WOFF2 fonts (Issue #10)
+ * -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "DM Serif Display";
+  src: url("/fonts/dm-serif-display-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+ * Brand-specific font overrides (Design System §4.4)
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --font-heading: "DM Serif Display", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}

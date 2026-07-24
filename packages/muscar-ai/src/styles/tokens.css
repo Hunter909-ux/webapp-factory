@@ -1,13 +1,42 @@
 /*
- * Brand tokens for muscar.ai — INTENTIONALLY EMPTY.
- * Agent 2 fills these in Issue #14 (Spore Red, Forest Floor, Fraunces).
- * Semantic token names and neutral fallbacks live in the shared theme
- * (packages/shared/styles/theme.css). Every value defined here overrides
- * the neutral fallback for this brand only.
- *
- * Example (see BMAD Design System, section 2):
- * :root {
- *   --color-primary: ...;
- *   --font-heading: ...;
- * }
+ * Brand tokens for muscar.ai — Agent 2 fills colors in Issue #14.
+ * Font definitions are already included here so the shared typography works.
  */
+
+/* --------------------------------------------------------------------------
+ * Font faces — self-hosted WOFF2 variable fonts (Issue #10)
+ * -------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-variable.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+ * Brand-specific font overrides (Design System §4.4)
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}

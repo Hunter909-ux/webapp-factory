@@ -27,6 +27,10 @@ const defaultTheme = "dark";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <!-- Self-hosted font preloads (Issue #10) -->
+    <link rel="preload" href="/fonts/fraunces-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin />
     <slot name="head" />
     <script is:inline>
       // Apply the persisted theme before first paint to avoid a flash.

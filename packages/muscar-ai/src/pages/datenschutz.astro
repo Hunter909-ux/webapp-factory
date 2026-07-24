@@ -1,9 +1,9 @@
 ---
+import { getEntry } from "astro:content";
 /**
  * Datenschutz — DSGVO compliant legal page, excluded from search engines.
  */
 import SEOHead from "@webapp-factory/shared/components/SEOHead.astro";
-import { getEntry } from "astro:content";
 import Landing from "../layouts/Landing.astro";
 
 const entry = await getEntry("legal", "datenschutz");
