@@ -16,7 +16,7 @@ RUN pnpm install --frozen-lockfile
 
 # Build only the muscar-ai package. The Ghost content key is injected at build
 # time by Zeabur; the site is written to tolerate a missing key (empty list).
-ENV GHOST_URL=http://ghost-muscar.zeabur.internal:2368
+ENV GHOST_URL=https://ghost-muscar-wf.zeabur.app
 ENV PUBLIC_SITE_URL=https://muscar.ai
 ENV PUBLIC_PLAUSIBLE_DOMAIN=muscar.ai
 # Forward Zeabur service variables into the build container so Vite can
