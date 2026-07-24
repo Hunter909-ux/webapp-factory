@@ -28,6 +28,7 @@ export default defineConfig({
     }),
   ],
   vite: {
+    envPrefix: ["PUBLIC_", "GHOST_"],
     plugins: [tailwindcss()],
   },
   server: {
