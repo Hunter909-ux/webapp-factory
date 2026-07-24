@@ -1,0 +1,45 @@
+---
+/**
+ * Header — logo slot, navigation links, language switch and theme toggle.
+ * No brand colors hardcoded; everything styles via CSS custom properties.
+ */
+import LangSwitch from "./LangSwitch.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+/** One navigation entry. */
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+/** One selectable language (passed through to LangSwitch). */
+interface Language {
+  code: string;
+  label: string;
+  href: string;
+}
+
+interface Props {
+  navLinks?: NavLink[];
+  languages?: Language[];
+  currentLocale?: string;
+}
+
+const { navLinks = [], languages = [], currentLocale = "en" } = Astro.props;
+---
+
+<header
+  class="flex items-center justify-between gap-4 border-b border-[var(--color-border,#e5e5e5)] px-4 py-3"
+>
+  <div class="flex items-center gap-2">
+    <!-- Logo slot: each brand provides its own logo (Issues #18 / #27) -->
+    <slot name="logo" />
+  </div>
+  <nav aria-label="Main navigation" class="flex items-center gap-4">
+    {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <div class="flex items-center gap-3">
+    {languages.length > 0 && <LangSwitch languages={languages} current={currentLocale} />}
+    <ThemeToggle />
+  </div>
+</header>

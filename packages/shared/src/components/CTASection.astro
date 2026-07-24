@@ -1,0 +1,18 @@
+---
+/**
+ * CTASection — heading plus a slot for the newsletter form or CTA buttons.
+ */
+interface Props {
+  heading: string;
+  subline?: string;
+}
+
+const { heading, subline } = Astro.props;
+---
+
+<section class="flex flex-col items-center gap-6 px-4 py-16 text-center">
+  <h2 class="text-3xl">{heading}</h2>
+  {subline && <p class="max-w-2xl text-[var(--color-text-secondary,#555)]">{subline}</p>}
+  <!-- NewsletterForm or CTA buttons -->
+  <slot />
+</section>

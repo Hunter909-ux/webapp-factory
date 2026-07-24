@@ -1,0 +1,54 @@
+---
+/**
+ * Footer — legal links (Impressum/Datenschutz), social links, copyright.
+ */
+
+/** One footer link. */
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  /** Legal links; defaults cover the German legal requirements (Issue #9). */
+  legalLinks?: FooterLink[];
+  /** Social profile links. */
+  socialLinks?: FooterLink[];
+  /** Copyright owner displayed after the year. */
+  copyrightName: string;
+}
+
+const {
+  legalLinks = [
+    { label: "Impressum", href: "/impressum" },
+    { label: "Datenschutz", href: "/datenschutz" },
+  ],
+  socialLinks = [],
+  copyrightName,
+} = Astro.props;
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+  class="flex flex-col items-center gap-3 border-t border-[var(--color-border,#e5e5e5)] px-4 py-6 text-sm"
+>
+  <nav aria-label="Legal" class="flex gap-4">
+    {legalLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  {
+    socialLinks.length > 0 && (
+      <nav aria-label="Social media" class="flex gap-4">
+        {socialLinks.map((link) => (
+          <a href={link.href} rel="me noopener" target="_blank">
+            {link.label}
+          </a>
+        ))}
+      </nav>
+    )
+  }
+  <p>
+    © {currentYear}
+    {copyrightName}
+  </p>
+</footer>

@@ -8,6 +8,8 @@
     ".": "./src/index.ts",
     "./cms/ports": "./src/cms/ports.ts",
     "./cms/adapters/ghost": "./src/cms/adapters/ghost.ts",
+    "./components/*": "./src/components/*",
+    "./styles/*": "./styles/*",
     "./seo": "./src/seo.ts",
     "./i18n": "./src/i18n.ts",
     "./legal": "./src/legal.ts"

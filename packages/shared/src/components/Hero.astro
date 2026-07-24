@@ -1,0 +1,24 @@
+---
+/**
+ * Hero — H1, subline, CTA button slot and visual slot.
+ */
+interface Props {
+  /** Main headline (H1 — exactly one per page). */
+  headline: string;
+  /** Supporting subline below the headline. */
+  subline?: string;
+}
+
+const { headline, subline } = Astro.props;
+---
+
+<section class="flex flex-col items-center gap-6 px-4 py-16 text-center">
+  <h1 class="text-4xl md:text-5xl">{headline}</h1>
+  {subline && <p class="max-w-2xl text-lg text-[var(--color-text-secondary,#555)]">{subline}</p>}
+  <div class="flex flex-wrap justify-center gap-4">
+    <!-- CTA buttons -->
+    <slot name="cta" />
+  </div>
+  <!-- Optional visual (image, illustration, animation) -->
+  <slot name="visual" />
+</section>

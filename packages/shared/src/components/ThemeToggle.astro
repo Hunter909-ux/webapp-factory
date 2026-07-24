@@ -1,0 +1,29 @@
+---
+/**
+ * ThemeToggle — switches data-theme between dark and light and persists
+ * the choice in localStorage (read back by the Base layout inline script).
+ * Implemented as a plain Astro script (zero framework JS, loads eagerly —
+ * equivalent to the "client:load island" requirement without hydration cost).
+ */
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Toggle color theme"
+  class="cursor-pointer rounded-md border border-[var(--color-border,#ccc)] px-2 py-1"
+>
+  <slot>◐</slot>
+</button>
+
+<script>
+  // One listener per toggle button; multiple instances stay independent.
+  for (const button of document.querySelectorAll("[data-theme-toggle]")) {
+    button.addEventListener("click", () => {
+      const root = document.documentElement;
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      localStorage.setItem("theme", next);
+    });
+  }
+</script>

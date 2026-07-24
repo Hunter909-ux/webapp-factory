@@ -1,0 +1,75 @@
+---
+/**
+ * SEOHead — all SEO-relevant head tags in one component.
+ * Used inside the Base layout's "head" slot.
+ * Schema.org JSON-LD payloads are built with helpers from shared/seo.ts.
+ */
+
+/** One alternate language version of the current page (hreflang). */
+interface Alternate {
+  lang: string;
+  href: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  /** Absolute canonical URL of the current page. */
+  canonical: string;
+  /** Absolute URL of the Open Graph image. */
+  ogImage?: string;
+  /** Open Graph type, e.g. "website" or "article". */
+  ogType?: string;
+  /** Site name for og:site_name. */
+  siteName?: string;
+  /** BCP-47 locale of this page, e.g. "en" or "de". */
+  locale?: string;
+  /** Alternate language versions incl. x-default (Issue #11). */
+  alternates?: Alternate[];
+  /** Pre-built Schema.org JSON-LD object(s) (Issue #12). */
+  schema?: object | object[];
+  /** Set to true on legal pages to exclude them from search engines. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = "website",
+  siteName,
+  locale = "en",
+  alternates = [],
+  schema,
+  noindex = false,
+} = Astro.props;
+
+const schemaList = schema === undefined ? [] : Array.isArray(schema) ? schema : [schema];
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content={ogType} />
+<meta property="og:locale" content={locale} />
+{siteName && <meta property="og:site_name" content={siteName} />}
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
+
+<!-- hreflang alternates (Issue #11) -->
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={alt.href} />)}
+
+<!-- Schema.org JSON-LD (Issue #12) -->
+{schemaList.map((entry) => <script type="application/ld+json" set:html={JSON.stringify(entry)} />)}

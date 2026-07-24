@@ -1,8 +1,10 @@
 ---
 /**
  * Landing layout — full-width sections, no sidebar.
- * Header/Footer components (Issue #6) wrap the slot content.
+ * Header/Footer come from the shared component library.
  */
+import Footer from "@webapp-factory/shared/components/Footer.astro";
+import Header from "@webapp-factory/shared/components/Header.astro";
 import Base from "./Base.astro";
 
 interface Props {
@@ -11,12 +13,22 @@ interface Props {
   lang?: string;
 }
 
-const { title, description, lang } = Astro.props;
+const { title, description, lang = "de" } = Astro.props;
+
+/** Language variants of the landing page (Issue #11 refines per-page links). */
+const languages = [
+  { code: "de", label: "DE", href: "/" },
+  { code: "en", label: "EN", href: "/en/" },
+];
 ---
 
 <Base title={title} description={description} lang={lang}>
   <slot name="head" slot="head" />
+  <Header languages={languages} currentLocale={lang}>
+    <a slot="logo" href={lang === "en" ? "/en/" : "/"}>Patchwork Heroes</a>
+  </Header>
   <main class="w-full">
     <slot />
   </main>
+  <Footer copyrightName="Patchwork Heroes" />
 </Base>

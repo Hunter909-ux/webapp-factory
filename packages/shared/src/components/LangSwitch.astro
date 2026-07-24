@@ -1,0 +1,41 @@
+---
+/**
+ * LangSwitch — links to the language variant of the current page.
+ * Pure links (no JS): search engines can follow them.
+ */
+
+/** One selectable language. */
+interface Language {
+  /** Locale code, e.g. "de". */
+  code: string;
+  /** Visible label, e.g. "DE". */
+  label: string;
+  /** URL of the current page in that language. */
+  href: string;
+}
+
+interface Props {
+  /** All languages including the current one. */
+  languages: Language[];
+  /** Locale code of the current page. */
+  current: string;
+}
+
+const { languages, current } = Astro.props;
+---
+
+<nav aria-label="Language selection" class="flex items-center gap-2">
+  {
+    languages.map((language) =>
+      language.code === current ? (
+        <span aria-current="true" class="font-bold">
+          {language.label}
+        </span>
+      ) : (
+        <a href={language.href} rel="alternate" hreflang={language.code}>
+          {language.label}
+        </a>
+      ),
+    )
+  }
+</nav>

@@ -1,0 +1,73 @@
+---
+/**
+ * NewsletterForm — e-mail capture with success/error state.
+ * Posts to the Ghost Members magic-link endpoint (double opt-in built in).
+ * Plain Astro script (zero framework JS, no hydration needed).
+ */
+interface Props {
+  /** Absolute endpoint, e.g. `${ghostUrl}/members/api/send-magic-link/`. */
+  action: string;
+  placeholder?: string;
+  buttonLabel?: string;
+  successMessage?: string;
+  errorMessage?: string;
+}
+
+const {
+  action,
+  placeholder = "your@email.com",
+  buttonLabel = "Subscribe",
+  successMessage = "Check your inbox to confirm your subscription.",
+  errorMessage = "Something went wrong. Please try again.",
+} = Astro.props;
+---
+
+<form
+  data-newsletter-form
+  data-action={action}
+  data-success={successMessage}
+  data-error={errorMessage}
+  class="flex w-full max-w-md flex-col gap-3 sm:flex-row"
+>
+  <label class="sr-only" for="newsletter-email">E-mail address</label>
+  <input
+    id="newsletter-email"
+    type="email"
+    name="email"
+    required
+    placeholder={placeholder}
+    class="flex-1 rounded-md border border-[var(--color-border,#ccc)] px-3 py-2"
+  />
+  <button
+    type="submit"
+    class="rounded-md bg-[var(--color-primary,#333)] px-4 py-2 text-[var(--color-text-on-primary,#fff)]"
+  >
+    {buttonLabel}
+  </button>
+  <p data-newsletter-message role="status" aria-live="polite" class="hidden w-full text-sm"></p>
+</form>
+
+<script>
+  // Progressive enhancement: intercept submit, call the Ghost Members API.
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-newsletter-form]")) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const message = form.querySelector<HTMLElement>("[data-newsletter-message]");
+      const emailInput = form.querySelector<HTMLInputElement>("input[type=email]");
+      if (!message || !emailInput) return;
+      try {
+        const response = await fetch(form.dataset.action ?? "", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: emailInput.value, emailType: "subscribe" }),
+        });
+        message.textContent = response.ok
+          ? (form.dataset.success ?? "")
+          : (form.dataset.error ?? "");
+      } catch {
+        message.textContent = form.dataset.error ?? "";
+      }
+      message.classList.remove("hidden");
+    });
+  }
+</script>

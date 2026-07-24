@@ -1,0 +1,36 @@
+---
+/**
+ * ProblemSection — three pain points with optional icons.
+ * Icons are passed as named slots: icon-1, icon-2, icon-3.
+ */
+
+/** One pain point card. */
+interface PainPoint {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Exactly three pain points (Design guideline). */
+  painPoints: PainPoint[];
+}
+
+const { heading, painPoints } = Astro.props;
+---
+
+<section class="px-4 py-16">
+  <h2 class="mb-10 text-center text-3xl">{heading}</h2>
+  <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+    {
+      painPoints.map((point, index) => (
+        <article class="flex flex-col items-center gap-3 text-center">
+          <slot name={`icon-${index + 1}`} />
+          <h3 class="text-xl">{point.title}</h3>
+          <p class="text-[var(--color-text-secondary,#555)]">{point.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

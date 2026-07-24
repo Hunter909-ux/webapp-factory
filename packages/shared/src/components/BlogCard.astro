@@ -1,0 +1,38 @@
+---
+/**
+ * BlogCard — post preview card for blog listings (title, date, excerpt, tag).
+ */
+import type { Post } from "../cms/ports.js";
+
+interface Props {
+  post: Post;
+  /** Link target, e.g. `/blog/${post.slug}` (locale-aware, built by the page). */
+  href: string;
+  /** Locale for the date formatting, e.g. "de-DE". */
+  dateLocale?: string;
+}
+
+const { post, href, dateLocale = "en-US" } = Astro.props;
+
+const publishedDate = post.published_at
+  ? new Date(post.published_at).toLocaleDateString(dateLocale, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  : null;
+const primaryTag = post.tags[0];
+---
+
+<article
+  class="flex flex-col gap-2 rounded-lg border border-[var(--color-border,#e5e5e5)] p-5"
+>
+  <div class="flex items-center gap-3 text-sm text-[var(--color-text-muted,#777)]">
+    {publishedDate && <time datetime={post.published_at}>{publishedDate}</time>}
+    {primaryTag && <span class="rounded-full border px-2 py-0.5">{primaryTag.name}</span>}
+  </div>
+  <h3 class="text-xl">
+    <a href={href}>{post.title}</a>
+  </h3>
+  {post.excerpt && <p class="text-[var(--color-text-secondary,#555)]">{post.excerpt}</p>}
+</article>

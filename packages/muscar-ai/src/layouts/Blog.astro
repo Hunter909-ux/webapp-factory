@@ -2,6 +2,8 @@
 /**
  * Blog layout — typography-focused reading column (max 720px).
  */
+import Footer from "@webapp-factory/shared/components/Footer.astro";
+import Header from "@webapp-factory/shared/components/Header.astro";
 import Base from "./Base.astro";
 
 interface Props {
@@ -10,12 +12,22 @@ interface Props {
   lang?: string;
 }
 
-const { title, description, lang } = Astro.props;
+const { title, description, lang = "en" } = Astro.props;
+
+/** Language variants (Issue #11 refines per-page links). */
+const languages = [
+  { code: "en", label: "EN", href: "/blog/" },
+  { code: "de", label: "DE", href: "/de/blog/" },
+];
 ---
 
 <Base title={title} description={description} lang={lang}>
   <slot name="head" slot="head" />
+  <Header languages={languages} currentLocale={lang}>
+    <a slot="logo" href={lang === "de" ? "/de/" : "/"}>muscar.ai</a>
+  </Header>
   <main class="mx-auto w-full max-w-[720px] px-4">
     <slot />
   </main>
+  <Footer copyrightName="muscar.ai" />
 </Base>
