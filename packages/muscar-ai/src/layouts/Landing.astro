@@ -55,7 +55,9 @@ const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, de
     noindex={noindex}
   />
   <Header languages={languages} currentLocale={lang}>
-    <a slot="logo" href={lang === "de" ? "/de/" : "/"}>muscar.ai</a>
+    <a slot="logo" href={lang === "de" ? "/de/" : "/"} aria-label="Home">
+      <img src="/logo.svg" alt="muscar.ai" width="128" height="32" class="h-8 w-auto" />
+    </a>
   </Header>
   <main class="w-full">
     <slot />

@@ -1,0 +1,23 @@
+<!--
+  muscar.ai wordmark for dark backgrounds — Birch White.
+  Used whenever the logo sits on the Forest Floor background.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 160 40"
+  width="160"
+  height="40"
+  role="img"
+  aria-label="muscar.ai"
+>
+  <text
+    x="0"
+    y="30"
+    font-family="Fraunces, Georgia, serif"
+    font-size="32"
+    font-weight="500"
+    fill="#F0EDE8"
+  >
+    muscar
+  </text>
+</svg>

@@ -1,0 +1,58 @@
+<!--
+  Default Open Graph image for muscar.ai — 1200×630.
+  Rendered to og-default.png during the build/asset generation step (Issue #18).
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1200 630"
+  width="1200"
+  height="630"
+  role="img"
+  aria-label="muscar.ai"
+>
+  <!-- Forest Floor background -->
+  <rect width="1200" height="630" fill="#1A1612" />
+
+  <!-- Mycelium symbol centered above the wordmark -->
+  <g transform="translate(600, 240)" stroke="#C84B31" stroke-width="3" stroke-linecap="round" fill="none">
+    <line x1="0" y1="0" x2="-50" y2="-40" />
+    <line x1="0" y1="0" x2="55" y2="-35" />
+    <line x1="0" y1="0" x2="60" y2="35" />
+    <line x1="0" y1="0" x2="-45" y2="50" />
+    <line x1="-50" y1="-40" x2="55" y2="-35" />
+    <line x1="55" y1="-35" x2="60" y2="35" />
+    <line x1="60" y1="35" x2="-45" y2="50" />
+  </g>
+  <g transform="translate(600, 240)" fill="#C84B31">
+    <circle cx="-50" cy="-40" r="9" />
+    <circle cx="55" cy="-35" r="10" />
+    <circle cx="60" cy="35" r="9" />
+    <circle cx="-45" cy="50" r="10" />
+    <circle cx="0" cy="0" r="18" />
+  </g>
+
+  <!-- Wordmark -->
+  <text
+    x="600"
+    y="460"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-size="120"
+    font-weight="500"
+    fill="#C84B31"
+  >
+    muscar
+  </text>
+
+  <!-- Tagline -->
+  <text
+    x="600"
+    y="520"
+    text-anchor="middle"
+    font-family="Inter, system-ui, sans-serif"
+    font-size="28"
+    fill="#B8AFA8"
+  >
+    From Second Brain to First Mind
+  </text>
+</svg>
