@@ -56,7 +56,8 @@ const en: Translations = {
   },
   newsletter: {
     heading: "Stay in the loop.",
-    subline: "New releases, architecture insights, and thinking-out-loud posts. No spam. Unsubscribe anytime.",
+    subline:
+      "New releases, architecture insights, and thinking-out-loud posts. No spam. Unsubscribe anytime.",
     placeholder: "your@email.com",
     submit: "Subscribe",
     success: "Check your inbox to confirm your subscription.",

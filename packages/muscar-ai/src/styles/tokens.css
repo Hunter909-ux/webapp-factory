@@ -81,11 +81,8 @@
   --color-link: #8ab4f8;
   --color-link-hover: #aecbfa;
 
-  /* Design-system aliases (so both naming conventions work) */
+  /* Design-system aliases that do not clash with semantic tokens */
   --color-bg-base: #1a1612;
-  --color-bg-surface: #2a2420;
-  --color-bg-elevated: #352e29;
-  --color-text-primary: #f0ede8;
   --color-text-dark: #2d2319;
 }
 
@@ -124,10 +121,7 @@
   --color-link: #1d4ed8;
   --color-link-hover: #1e3a8a;
 
-  /* Design-system aliases */
+  /* Design-system aliases that do not clash with semantic tokens */
   --color-bg-base: #f5f0eb;
-  --color-bg-surface: #fdfaf7;
-  --color-bg-elevated: #ffffff;
-  --color-text-primary: #2d2319;
   --color-text-dark: #2d2319;
 }

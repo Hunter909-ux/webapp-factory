@@ -9,9 +9,8 @@ import NewsletterForm from "@webapp-factory/shared/components/NewsletterForm.ast
 import ProblemSection from "@webapp-factory/shared/components/ProblemSection.astro";
 import { useTranslations } from "@webapp-factory/shared/i18n";
 import { createOrganizationSchema, createWebSiteSchema } from "@webapp-factory/shared/seo";
-
-import Landing from "../layouts/Landing.astro";
 import { getDictionary } from "../i18n/index.js";
+import Landing from "../layouts/Landing.astro";
 import OpenSourceSection from "./OpenSourceSection.astro";
 import SolutionSection from "./SolutionSection.astro";
 
@@ -25,9 +24,7 @@ const t = useTranslations(getDictionary(lang));
 const site = Astro.site?.toString() ?? "https://muscar.ai";
 const siteName = "muscar.ai";
 const description =
-  lang === "de"
-    ? "Open-Source-Tools für Systemdenker."
-    : "Open-source tools for systems thinkers.";
+  lang === "de" ? "Open-Source-Tools für Systemdenker." : "Open-source tools for systems thinkers.";
 const ogImage = new URL("/og-default.png", site).toString();
 
 const schema = [
