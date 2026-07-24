@@ -28,6 +28,9 @@ ENV PUBLIC_MAILERLITE_ACCOUNT_ID=${PUBLIC_MAILERLITE_ACCOUNT_ID}
 ARG PUBLIC_MAILERLITE_FORM_ID=
 ENV PUBLIC_MAILERLITE_FORM_ID=${PUBLIC_MAILERLITE_FORM_ID}
 
+# Debug: verify build-time env injection (remove after verification).
+RUN node -e "console.log('ENV CHECK GHOST_URL=', process.env.GHOST_URL, 'GHOST_CONTENT_KEY=', (process.env.GHOST_CONTENT_KEY || '').slice(0,5), 'GHOST_ADMIN_KEY=', (process.env.GHOST_ADMIN_KEY || '').slice(0,5))"
+
 RUN pnpm --filter @webapp-factory/patchworkheroes build
 
 FROM nginx:alpine
