@@ -8,6 +8,6 @@ import type { ContentPort } from "@webapp-factory/shared/cms/ports";
 
 export const cms: ContentPort = createGhostAdapter({
   url: import.meta.env.GHOST_URL,
-  contentKey: import.meta.env.GHOST_CONTENT_KEY,
-  adminKey: import.meta.env.GHOST_ADMIN_KEY,
+  contentKey: process.env.GHOST_CONTENT_KEY ?? import.meta.env.GHOST_CONTENT_KEY,
+  adminKey: process.env.GHOST_ADMIN_KEY ?? import.meta.env.GHOST_ADMIN_KEY,
 });

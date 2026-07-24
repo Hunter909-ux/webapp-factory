@@ -37,7 +37,7 @@ const schema = [
   }),
 ];
 
-const ghostUrl = import.meta.env.GHOST_URL ?? "http://localhost:2368";
+const ghostUrl = process.env.GHOST_URL ?? import.meta.env.GHOST_URL ?? "http://localhost:2368";
 const newsletterAction = `${ghostUrl.replace(/\/$/, "")}/members/api/send-magic-link/`;
 
 const painPoints = [
