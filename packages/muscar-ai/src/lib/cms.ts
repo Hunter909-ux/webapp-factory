@@ -6,8 +6,11 @@
 import { createGhostAdapter } from "@webapp-factory/shared/cms/adapters/ghost";
 import type { ContentPort } from "@webapp-factory/shared/cms/ports";
 
-console.log("[cms build debug] GHOST_URL:", import.meta.env.GHOST_URL, "GHOST_CONTENT_KEY present:", Boolean(process.env.GHOST_CONTENT_KEY || import.meta.env.GHOST_CONTENT_KEY));
-
+/**
+ * Creates the shared Ghost adapter using environment variables available at
+ * SSG build time. `process.env` is used because it reliably receives values
+ * from the Docker build environment; `import.meta.env` is kept as fallback.
+ */
 export const cms: ContentPort = createGhostAdapter({
   url: import.meta.env.GHOST_URL,
   contentKey: process.env.GHOST_CONTENT_KEY || import.meta.env.GHOST_CONTENT_KEY,
