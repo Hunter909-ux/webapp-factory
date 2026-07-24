@@ -1,0 +1,13 @@
+/*
+ * Brand tokens for muscar.ai — INTENTIONALLY EMPTY.
+ * Agent 2 fills these in Issue #14 (Spore Red, Forest Floor, Fraunces).
+ * Semantic token names and neutral fallbacks live in the shared theme
+ * (packages/shared/styles/theme.css). Every value defined here overrides
+ * the neutral fallback for this brand only.
+ *
+ * Example (see BMAD Design System, section 2):
+ * :root {
+ *   --color-primary: ...;
+ *   --font-heading: ...;
+ * }
+ */

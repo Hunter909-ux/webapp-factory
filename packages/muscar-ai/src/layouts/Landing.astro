@@ -1,0 +1,22 @@
+---
+/**
+ * Landing layout — full-width sections, no sidebar.
+ * Header/Footer components (Issue #6) wrap the slot content.
+ */
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const { title, description, lang } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang}>
+  <slot name="head" slot="head" />
+  <main class="w-full">
+    <slot />
+  </main>
+</Base>

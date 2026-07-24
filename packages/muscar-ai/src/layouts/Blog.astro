@@ -1,0 +1,21 @@
+---
+/**
+ * Blog layout — typography-focused reading column (max 720px).
+ */
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: string;
+}
+
+const { title, description, lang } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang}>
+  <slot name="head" slot="head" />
+  <main class="mx-auto w-full max-w-[720px] px-4">
+    <slot />
+  </main>
+</Base>

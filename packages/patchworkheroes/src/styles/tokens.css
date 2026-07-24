@@ -1,0 +1,13 @@
+/*
+ * Brand tokens for patchworkheroes.de — INTENTIONALLY EMPTY.
+ * Agent 3 fills these in Issue #22 (Deep Slate, Amber, DM Serif).
+ * Semantic token names and neutral fallbacks live in the shared theme
+ * (packages/shared/styles/theme.css). Every value defined here overrides
+ * the neutral fallback for this brand only.
+ *
+ * Example (see BMAD Design System, section 3):
+ * :root {
+ *   --color-primary: ...;
+ *   --font-heading: ...;
+ * }
+ */

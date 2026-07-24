@@ -1,0 +1,43 @@
+---
+/**
+ * Base layout — HTML shell shared by every page.
+ * Brand identity comes exclusively from CSS custom properties (tokens.css).
+ * SEOHead (Issue #6) plugs into the "head" slot.
+ */
+import "../styles/tokens.css";
+import "../styles/base.css";
+
+interface Props {
+  /** Document title. */
+  title: string;
+  /** Meta description (optional). */
+  description?: string;
+  /** BCP-47 language of the page content. */
+  lang?: string;
+}
+
+const { title, description, lang = "en" } = Astro.props;
+/** muscar.ai defaults to dark mode ("Waldnacht", Design System §1). */
+const defaultTheme = "dark";
+---
+
+<!doctype html>
+<html lang={lang} data-theme={defaultTheme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <slot name="head" />
+    <script is:inline>
+      // Apply the persisted theme before first paint to avoid a flash.
+      const storedTheme = localStorage.getItem("theme");
+      if (storedTheme === "light" || storedTheme === "dark") {
+        document.documentElement.dataset.theme = storedTheme;
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
