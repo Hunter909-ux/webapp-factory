@@ -1,0 +1,44 @@
+# Local development stack: Ghost 5 (headless CMS) + MySQL 8 (ADR-W3).
+# Usage:
+#   cp .env.example .env   # fill in local passwords (never commit .env)
+#   docker compose up -d
+# Ghost Admin UI: http://localhost:2368/ghost/
+services:
+  mysql:
+    image: mysql:8
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      # Creates ghost_muscar and ghost_pwh on first start (shared MySQL, ADR-W3)
+      - ../mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  ghost:
+    image: ghost:5-alpine
+    restart: unless-stopped
+    ports:
+      - "2368:2368"
+    environment:
+      url: ${GHOST_URL}
+      database__client: mysql
+      database__connection__host: mysql
+      database__connection__port: 3306
+      database__connection__user: root
+      database__connection__password: ${MYSQL_ROOT_PASSWORD}
+      database__connection__database: ${GHOST_DATABASE}
+    volumes:
+      # Images and themes persist across container restarts
+      - ghost-content:/var/lib/ghost/content
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql-data:
+  ghost-content:
