@@ -19,6 +19,10 @@ RUN pnpm install --frozen-lockfile
 ENV GHOST_URL=http://ghost-muscar.zeabur.internal:2368
 ENV PUBLIC_SITE_URL=https://muscar.ai
 ENV PUBLIC_PLAUSIBLE_DOMAIN=muscar.ai
+# Forward Zeabur service variables into the build container so Vite can
+# inline them for the SSG step (Issue #20).
+ENV GHOST_CONTENT_KEY=${GHOST_CONTENT_KEY}
+ENV GHOST_ADMIN_KEY=${GHOST_ADMIN_KEY}
 RUN pnpm --filter @webapp-factory/muscar-ai build
 
 FROM nginx:alpine
