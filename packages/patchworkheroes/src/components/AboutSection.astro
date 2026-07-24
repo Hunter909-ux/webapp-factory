@@ -1,0 +1,24 @@
+---
+/**
+ * Founder story / social proof section for patchworkheroes.de (Issue #24).
+ */
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Body paragraph. */
+  body: string;
+}
+
+const { heading, body } = Astro.props;
+---
+
+<section class="px-4 py-16">
+  <div
+    class="mx-auto max-w-3xl border-l-4 border-[var(--color-accent)] bg-[var(--color-bg-surface)] p-8 pl-10"
+  >
+    <h2 class="mb-6 text-3xl md:text-4xl">{heading}</h2>
+    <p class="text-lg leading-relaxed text-[var(--color-text-secondary)]">
+      {body}
+    </p>
+  </div>
+</section>

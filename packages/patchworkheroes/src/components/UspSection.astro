@@ -1,0 +1,35 @@
+---
+/**
+ * USP section for patchworkheroes.de (Issue #24).
+ * Three pillars that communicate the unique positioning.
+ */
+interface Pillar {
+  /** Short pillar title. */
+  title: string;
+  /** Descriptive text. */
+  text: string;
+}
+
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Exactly three pillars. */
+  pillars: Pillar[];
+}
+
+const { heading, pillars } = Astro.props;
+---
+
+<section class="bg-[var(--color-bg-surface)] px-4 py-16">
+  <h2 class="mb-12 text-center text-3xl md:text-4xl">{heading}</h2>
+  <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+    {
+      pillars.map((pillar) => (
+        <article class="flex flex-col gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-6">
+          <h3 class="text-xl text-[var(--color-accent)]">{pillar.title}</h3>
+          <p class="text-[var(--color-text-secondary)]">{pillar.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

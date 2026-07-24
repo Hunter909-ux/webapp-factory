@@ -31,6 +31,10 @@ Diese Website wird auf Zeabur (Hetzner, EU) gehostet.
 
 Diese Website nutzt Plausible Analytics (plausible.io, EU-gehostet, cookieless).
 
+## Newsletter
+
+Für den 7-Tage-Reset wird Mailerlite (EU-Server) verwendet. Mailerlite verarbeitet die E-Mail-Adresse im Auftrag des Verantwortlichen (Auftragsverarbeitung).
+
 ## Kontakt
 
 Bei Fragen zum Datenschutz: [EMAIL]

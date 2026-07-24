@@ -1,0 +1,30 @@
+---
+/**
+ * Audio teaser section for patchworkheroes.de (Issue #24, #25).
+ * Hydrates the AudioPlayer island only when the section scrolls into view.
+ */
+import AudioPlayer from "./AudioPlayer.astro";
+
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Subline under the heading. */
+  subline: string;
+  /** Audio track title. */
+  title: string;
+  /** Track description. */
+  description: string;
+  /** Soft CTA shown after hitting play. */
+  cta: string;
+  /** Path to the preview MP3. */
+  src: string;
+}
+
+const { heading, subline, title, description, cta, src } = Astro.props;
+---
+
+<section id="audio" class="px-4 py-16 text-center">
+  <h2 class="mb-4 text-3xl md:text-4xl">{heading}</h2>
+  <p class="mx-auto mb-10 max-w-2xl text-[var(--color-text-secondary)]">{subline}</p>
+  <AudioPlayer src={src} title={title} description={description} cta={cta} />
+</section>

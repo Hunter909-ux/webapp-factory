@@ -39,7 +39,7 @@ export default defineConfig({
       "Permissions-Policy":
         "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()",
       "Content-Security-Policy":
-        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://plausible.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+        "default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.mailerlite.com https://static.mailerlite.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://plausible.io https://*.mailerlite.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://*.mailerlite.com",
       "X-Robots-Tag": "noai, noimageai",
     },
   },

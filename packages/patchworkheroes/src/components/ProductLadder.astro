@@ -1,0 +1,50 @@
+---
+/**
+ * Product ladder section for patchworkheroes.de (Issue #24).
+ * Free -> audio -> workshop -> coaching, styled as a stepped offer stack.
+ */
+interface Offer {
+  /** Offer title. */
+  title: string;
+  /** Short description. */
+  description: string;
+  /** CTA button label. */
+  cta: string;
+  /** Optional price hint. */
+  price?: string;
+}
+
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Four offers ordered from free to premium. */
+  offers: Offer[];
+}
+
+const { heading, offers } = Astro.props;
+---
+
+<section class="bg-[var(--color-bg-elevated)] px-4 py-16">
+  <h2 class="mb-12 text-center text-3xl md:text-4xl">{heading}</h2>
+  <div class="mx-auto flex max-w-3xl flex-col gap-4">
+    {
+      offers.map((offer, index) => (
+        <article
+          class={`flex flex-col gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-6 md:flex-row md:items-center md:justify-between ${index % 2 === 0 ? "md:translate-x-0" : "md:translate-x-8"}`}
+        >
+          <div>
+            <h3 class="text-xl">{offer.title}</h3>
+            {offer.price && <span class="text-sm text-[var(--color-accent)]">{offer.price}</span>}
+            <p class="text-[var(--color-text-secondary)]">{offer.description}</p>
+          </div>
+          <a
+            href="#reset"
+            class="mt-2 rounded-md border border-[var(--color-primary)] px-4 py-2 text-center text-[var(--color-primary)] transition hover:bg-[var(--color-primary)] hover:text-[var(--color-text-on-primary)] md:mt-0"
+          >
+            {offer.cta}
+          </a>
+        </article>
+      ))
+    }
+  </div>
+</section>

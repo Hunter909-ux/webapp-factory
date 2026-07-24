@@ -24,6 +24,11 @@ const defaultTheme = "light";
     <!-- Self-hosted font preloads (Issue #10) -->
     <link rel="preload" href="/fonts/dm-serif-display-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Brand icons (Issue #27) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <!-- Plausible Analytics (Issue #30) -->
+    <script is:inline defer data-domain="patchworkheroes.de" src="https://plausible.io/js/script.js"></script>
     <slot name="head" />
     <script is:inline>
       // Apply the persisted theme before first paint to avoid a flash.

@@ -7,6 +7,7 @@ import Header from "@webapp-factory/shared/components/Header.astro";
  */
 import SEOHead from "@webapp-factory/shared/components/SEOHead.astro";
 import { getLanguageLinks, localizePath } from "@webapp-factory/shared/i18n";
+import Logo from "../components/Logo.astro";
 import Base from "./Base.astro";
 
 interface Props {
@@ -39,6 +40,7 @@ const xDefaultHref = new URL(
 ).toString();
 
 const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, defaultLocale);
+const defaultOgImage = new URL("/og-default.png", site).toString();
 ---
 
 <Base lang={lang}>
@@ -47,7 +49,7 @@ const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, de
     title={title}
     description={description ?? ""}
     canonical={canonical}
-    ogImage={ogImage}
+    ogImage={ogImage ?? defaultOgImage}
     locale={lang}
     alternates={alternates}
     xDefaultHref={xDefaultHref}
@@ -55,7 +57,7 @@ const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, de
     noindex={noindex}
   />
   <Header languages={languages} currentLocale={lang}>
-    <a slot="logo" href={lang === "en" ? "/en/" : "/"}>Patchwork Heroes</a>
+    <Logo slot="logo" />
   </Header>
   <main class="w-full">
     <slot />

@@ -32,3 +32,87 @@
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
 }
+
+/* --------------------------------------------------------------------------
+ * patchworkheroes.de colour tokens (Design System §3).
+ * Light mode is the default brand expression; dark mode is available via
+ * data-theme="dark".
+ * -------------------------------------------------------------------------- */
+
+:root,
+:root[data-theme="light"] {
+  /* Primary palette - Deep Slate */
+  --color-primary: #2c3e50;
+  --color-primary-hover: #34495e;
+  --color-primary-muted: #1e2a36;
+
+  /* Backgrounds - warm off-whites */
+  --color-bg: #f5f0eb;
+  --color-bg-surface: #fdfaf7;
+  --color-bg-elevated: #ede8e1;
+
+  /* Text */
+  --color-text: #2c3e50;
+  --color-text-secondary: #5d7080;
+  --color-text-muted: #8b9daf;
+  --color-text-on-primary: #f5f0eb;
+
+  /* Accents - Kintsugi Gold */
+  --color-accent: #d4903c;
+  --color-accent-hover: #e8b168;
+  --color-nature: #87a878;
+  --color-success: #5a8a6a;
+  --color-error: #c0392b;
+
+  /* Borders */
+  --color-border: #d5cec6;
+  --color-border-dark: #3a4a5a;
+
+  /* Links */
+  --color-link: #2c3e50;
+  --color-link-hover: #d4903c;
+
+  /* Design-system aliases used by shared components */
+  --color-bg-base: #f5f0eb;
+  --color-bg-base-light: #f5f0eb;
+  --color-bg-base-dark: #1e2a36;
+  --color-bg-surface-dark: #2a3644;
+  --color-text-primary: #2c3e50;
+  --color-text-light: #f5f0eb;
+}
+
+/* --------------------------------------------------------------------------
+ * Dark mode - Deep Night (Design System §3.2)
+ * -------------------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+  --color-primary: #2c3e50;
+  --color-primary-hover: #34495e;
+  --color-primary-muted: #1e2a36;
+
+  --color-bg: #1e2a36;
+  --color-bg-surface: #2a3644;
+  --color-bg-elevated: #344453;
+
+  --color-text: #f5f0eb;
+  --color-text-secondary: #8b9daf;
+  --color-text-muted: #5d7080;
+  --color-text-on-primary: #f5f0eb;
+
+  --color-accent: #d4903c;
+  --color-accent-hover: #e8b168;
+  --color-nature: #87a878;
+  --color-success: #5a8a6a;
+  --color-error: #e74c3c;
+
+  --color-border: #3a4a5a;
+  --color-border-dark: #2c3e50;
+
+  --color-link: #e8b168;
+  --color-link-hover: #f5f0eb;
+
+  --color-bg-base: #1e2a36;
+  --color-bg-surface-dark: #2a3644;
+  --color-text-primary: #f5f0eb;
+  --color-text-light: #f5f0eb;
+}

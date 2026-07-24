@@ -1,0 +1,43 @@
+---
+/**
+ * Hero section for patchworkheroes.de (Issue #24).
+ * Two-line H1, subline and two CTAs that scroll to the relevant sections.
+ */
+interface Props {
+  /** First line of the H1. */
+  headline1: string;
+  /** Second line of the H1. */
+  headline2: string;
+  /** Subline paragraph. */
+  subline: string;
+  /** Primary CTA label. */
+  ctaPrimary: string;
+  /** Secondary CTA label. */
+  ctaSecondary: string;
+}
+
+const { headline1, headline2, subline, ctaPrimary, ctaSecondary } = Astro.props;
+---
+
+<section class="flex min-h-[80vh] flex-col items-center justify-center gap-8 px-4 py-16 text-center">
+  <h1 class="max-w-4xl text-4xl leading-tight md:text-6xl">
+    {headline1}<br />{headline2}
+  </h1>
+  <p class="max-w-2xl text-lg text-[var(--color-text-secondary)] md:text-xl">
+    {subline}
+  </p>
+  <div class="flex flex-wrap justify-center gap-4">
+    <a
+      href="#reset"
+      class="rounded-md bg-[var(--color-primary)] px-6 py-3 text-[var(--color-text-on-primary)] transition hover:bg-[var(--color-primary-hover)]"
+    >
+      {ctaPrimary}
+    </a>
+    <a
+      href="#audio"
+      class="rounded-md border border-[var(--color-primary)] px-6 py-3 text-[var(--color-primary)] transition hover:bg-[var(--color-primary)] hover:text-[var(--color-text-on-primary)]"
+    >
+      {ctaSecondary}
+    </a>
+  </div>
+</section>

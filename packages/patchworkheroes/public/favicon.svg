@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Patchwork Heroes Kintsugi favicon">
+  <rect width="32" height="32" rx="4" fill="#2C3E50" />
+  <path
+    d="M8 6 C12 10 10 14 16 18 S 22 24 26 28"
+    stroke="#D4903C"
+    stroke-width="1.5"
+    fill="none"
+    stroke-linecap="round"
+  />
+  <path
+    d="M6 20 C10 18 14 22 18 16 S 26 12 28 10"
+    stroke="#E8B168"
+    stroke-width="1"
+    fill="none"
+    stroke-linecap="round"
+  />
+</svg>

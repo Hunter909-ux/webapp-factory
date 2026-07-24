@@ -1,0 +1,76 @@
+---
+/**
+ * Mailerlite signup form for the 7-day reset (Issue #26).
+ * Loads the Mailerlite universal embed using the account and form IDs set
+ * in the build environment. Falls back to a manual e-mail capture if the IDs
+ * are not configured.
+ */
+interface Props {
+  /** Submit button label. */
+  buttonLabel?: string;
+}
+
+const { buttonLabel = "7-Tage-Reset starten" } = Astro.props;
+const accountId = import.meta.env.PUBLIC_MAILERLITE_ACCOUNT_ID ?? "";
+const formId = import.meta.env.PUBLIC_MAILERLITE_FORM_ID ?? "";
+const isConfigured: boolean = accountId.length > 0 && formId.length > 0;
+---
+
+{isConfigured ? (
+  <div class="mailerlite-form">
+    <div class="ml-embedded" data-form={formId}></div>
+    <script is:inline define:vars={{ accountId }}>
+      (function (w, d, e, u, f, l, n) {
+        w[f] =
+          w[f] ||
+          function () {
+            (w[f].q = w[f].q || []).push(arguments);
+          };
+        l = d.createElement(e);
+        l.async = 1;
+        l.src = u;
+        n = d.getElementsByTagName(e)[0];
+        n.parentNode.insertBefore(l, n);
+      })(window, document, "script", "https://assets.mailerlite.com/js/universal.js", "ml");
+      window.ml("account", accountId);
+    </script>
+  </div>
+) : (
+  <form
+    data-mailerlite-fallback
+    class="flex w-full max-w-md flex-col gap-3 sm:flex-row"
+  >
+    <label class="sr-only" for="mailerlite-fallback-email">E-mail address</label>
+    <input
+      id="mailerlite-fallback-email"
+      type="email"
+      name="email"
+      required
+      placeholder="deine@email.de"
+      class="flex-1 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-surface)] px-3 py-2 text-[var(--color-text)]"
+    />
+    <button
+      type="submit"
+      class="rounded-md bg-[var(--color-primary)] px-4 py-2 text-[var(--color-text-on-primary)] transition hover:bg-[var(--color-primary-hover)]"
+    >
+      {buttonLabel}
+    </button>
+    <p data-fallback-message role="status" aria-live="polite" class="hidden w-full text-sm text-[var(--color-text-secondary)]"></p>
+  </form>
+)}
+
+<script>
+  /**
+   * Wire up the fallback form to show a configuration hint.
+   */
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-mailerlite-fallback]")) {
+    const message = form.querySelector<HTMLElement>("[data-fallback-message]");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (message) {
+        message.textContent = "Bitte konfiguriere PUBLIC_MAILERLITE_ACCOUNT_ID und PUBLIC_MAILERLITE_FORM_ID, damit die Anmeldung funktioniert.";
+        message.classList.remove("hidden");
+      }
+    });
+  }
+</script>

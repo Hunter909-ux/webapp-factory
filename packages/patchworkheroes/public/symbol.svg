@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Patchwork Heroes Kintsugi symbol">
+  <!-- Deep Slate base shape representing strength and repair. -->
+  <circle cx="32" cy="32" r="30" fill="#2C3E50" />
+  <!-- Amber Kintsugi crack lines - strength through repair. -->
+  <path
+    d="M18 16 C24 22 22 28 30 34 S 42 46 48 52"
+    stroke="#D4903C"
+    stroke-width="1.8"
+    fill="none"
+    stroke-linecap="round"
+  />
+  <path
+    d="M14 40 C20 36 28 42 36 34 S 52 26 56 22"
+    stroke="#E8B168"
+    stroke-width="1.2"
+    fill="none"
+    stroke-linecap="round"
+  />
+  <path
+    d="M34 10 C32 18 40 24 44 32 S 50 48 52 56"
+    stroke="#D4903C"
+    stroke-width="1"
+    fill="none"
+    stroke-linecap="round"
+  />
+</svg>

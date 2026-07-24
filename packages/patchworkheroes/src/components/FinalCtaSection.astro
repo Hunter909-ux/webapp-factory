@@ -1,0 +1,29 @@
+---
+/**
+ * Final CTA section for patchworkheroes.de (Issue #24, #26).
+ * Wraps the Mailerlite signup form.
+ */
+import MailerliteForm from "./MailerliteForm.astro";
+
+interface Props {
+  /** Section heading. */
+  heading: string;
+  /** Subline. */
+  subline: string;
+  /** Submit button label. */
+  buttonLabel: string;
+  /** Privacy note below the form. */
+  privacy: string;
+}
+
+const { heading, subline, buttonLabel, privacy } = Astro.props;
+---
+
+<section id="reset" class="bg-[var(--color-bg-surface)] px-4 py-16 text-center">
+  <h2 class="mb-4 text-3xl md:text-4xl">{heading}</h2>
+  <p class="mx-auto mb-8 max-w-2xl text-[var(--color-text-secondary)]">{subline}</p>
+  <div class="mx-auto flex max-w-md justify-center">
+    <MailerliteForm buttonLabel={buttonLabel} />
+  </div>
+  <p class="mt-4 text-sm text-[var(--color-text-muted)]">{privacy}</p>
+</section>

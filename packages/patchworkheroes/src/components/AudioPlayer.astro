@@ -1,0 +1,147 @@
+---
+/**
+ * Self-hosted HTML5 audio player for patchworkheroes.de (Issue #25).
+ * Hydrates only when scrolled into view via client:visible.
+ */
+interface Props {
+  /** Path to the MP3 preview file served from /public. */
+  src: string;
+  /** Accessible title of the track. */
+  title: string;
+  /** Short description shown under the title. */
+  description?: string;
+  /** Soft call-to-action shown after the user hits play. */
+  cta?: string;
+}
+
+const { src, title, description, cta } = Astro.props;
+---
+
+<article
+  data-audio-player
+  class="mx-auto flex w-full max-w-xl flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-6 shadow-sm"
+>
+  <div class="flex items-center gap-4">
+    <button
+      type="button"
+      data-play-button
+      aria-label={`${title} abspielen`}
+      class="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-primary)] text-[var(--color-text-on-primary)] transition hover:bg-[var(--color-primary-hover)]"
+    >
+      <span data-play-icon class="text-2xl">▶</span>
+      <span data-pause-icon class="hidden text-2xl">⏸</span>
+    </button>
+    <div>
+      <h3 class="text-xl">{title}</h3>
+      {description && <p class="text-sm text-[var(--color-text-secondary)]">{description}</p>}
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <span data-current-time class="text-xs tabular-nums text-[var(--color-text-muted)]">0:00</span>
+    <input
+      type="range"
+      data-progress
+      value="0"
+      min="0"
+      max="100"
+      step="0.1"
+      aria-label="Wiedergabefortschritt"
+      class="h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-[var(--color-border)] accent-[var(--color-accent)]"
+    />
+    <span data-duration class="text-xs tabular-nums text-[var(--color-text-muted)]">0:00</span>
+  </div>
+  {cta && (
+    <p data-player-cta class="hidden text-sm text-[var(--color-text-secondary)]">
+      {cta}
+    </p>
+  )}
+  <audio data-audio src={src} preload="metadata" crossorigin="anonymous"></audio>
+</article>
+
+<script>
+  /**
+   * Wire up one audio player instance.
+   * @param container The article element that wraps a single player.
+   */
+  function initAudioPlayer(container: HTMLElement): void {
+    const audio = container.querySelector<HTMLAudioElement>("[data-audio]");
+    const playButton = container.querySelector<HTMLButtonElement>("[data-play-button]");
+    const playIcon = container.querySelector<HTMLSpanElement>("[data-play-icon]");
+    const pauseIcon = container.querySelector<HTMLSpanElement>("[data-pause-icon]");
+    const progress = container.querySelector<HTMLInputElement>("[data-progress]");
+    const currentTimeEl = container.querySelector<HTMLSpanElement>("[data-current-time]");
+    const durationEl = container.querySelector<HTMLSpanElement>("[data-duration]");
+    const cta = container.querySelector<HTMLParagraphElement>("[data-player-cta]");
+    if (!audio || !playButton || !playIcon || !pauseIcon || !progress || !currentTimeEl || !durationEl) {
+      return;
+    }
+
+    /**
+     * Format seconds into a human-readable m:ss string.
+     * @param seconds Raw time in seconds.
+     * @returns Formatted time string.
+     */
+    const formatTime = (seconds: number): string => {
+      const minutes = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${minutes}:${String(secs).padStart(2, "0")}`;
+    };
+
+    /**
+     * Update the progress bar and current time display.
+     */
+    const updateProgress = (): void => {
+      const duration = audio.duration || 0;
+      const current = audio.currentTime || 0;
+      progress.value = duration ? String((current / duration) * 100) : "0";
+      currentTimeEl.textContent = formatTime(current);
+      durationEl.textContent = formatTime(duration);
+    };
+
+    /**
+     * Toggle between playing and paused states.
+     */
+    const togglePlay = async (): Promise<void> => {
+      if (audio.paused) {
+        await audio.play();
+        playIcon.classList.add("hidden");
+        pauseIcon.classList.remove("hidden");
+        if (cta) {
+          cta.classList.remove("hidden");
+        }
+      } else {
+        audio.pause();
+        playIcon.classList.remove("hidden");
+        pauseIcon.classList.add("hidden");
+      }
+    };
+
+    /**
+     * Seek to the position chosen on the progress bar.
+     */
+    const seek = (): void => {
+      const duration = audio.duration || 0;
+      const percent = Number(progress.value) || 0;
+      audio.currentTime = (percent / 100) * duration;
+    };
+
+    playButton.addEventListener("click", togglePlay);
+    progress.addEventListener("input", seek);
+    audio.addEventListener("timeupdate", updateProgress);
+    audio.addEventListener("loadedmetadata", updateProgress);
+    audio.addEventListener("ended", () => {
+      playIcon.classList.remove("hidden");
+      pauseIcon.classList.add("hidden");
+    });
+    audio.addEventListener("keydown", (event: KeyboardEvent) => {
+      if (event.key === " ") {
+        event.preventDefault();
+        void togglePlay();
+      }
+    });
+  }
+
+  for (const container of document.querySelectorAll<HTMLElement>("[data-audio-player]")) {
+    initAudioPlayer(container);
+  }
+</script>

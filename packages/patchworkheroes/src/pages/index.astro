@@ -1,24 +1,87 @@
 ---
 /**
- * DE landing page (default locale) — structural placeholder.
- * Agent 3 fills the real sections in Issue #24.
+ * DE landing page (default locale) for patchworkheroes.de (Issue #24).
+ * Builds the full page from shared and local section components.
  */
+import { useTranslations } from "@webapp-factory/shared/i18n";
 import { createOrganizationSchema, createWebSiteSchema } from "@webapp-factory/shared/seo";
+import AboutSection from "../components/AboutSection.astro";
+import AudioTeaser from "../components/AudioTeaser.astro";
+import FinalCtaSection from "../components/FinalCtaSection.astro";
+import HeroSection from "../components/HeroSection.astro";
+import ProductLadder from "../components/ProductLadder.astro";
+import UspSection from "../components/UspSection.astro";
+import { getDictionary } from "../i18n/index.js";
 import Landing from "../layouts/Landing.astro";
 
 const siteUrl = "https://patchworkheroes.de";
+const t = useTranslations(getDictionary("de"));
 const schema = [
   createWebSiteSchema({
     name: "Patchwork Heroes",
     url: siteUrl,
-    description: "Klarheit, Stärke und praktische Tools für Patchworkfamilien.",
+    description: t("hero.subline"),
   }),
   createOrganizationSchema({ name: "Patchwork Heroes", url: siteUrl }),
 ];
+
+const pillars = [
+  { title: t("usp.pillar1Title"), text: t("usp.pillar1Text") },
+  { title: t("usp.pillar2Title"), text: t("usp.pillar2Text") },
+  { title: t("usp.pillar3Title"), text: t("usp.pillar3Text") },
+];
+
+const offers = [
+  {
+    title: t("ladder.freeTitle"),
+    description: t("ladder.freeDesc"),
+    cta: t("ladder.freeCta"),
+    price: "Free",
+  },
+  {
+    title: t("ladder.audioTitle"),
+    description: t("ladder.audioDesc"),
+    cta: t("ladder.audioCta"),
+    price: "19-39€",
+  },
+  {
+    title: t("ladder.workshopTitle"),
+    description: t("ladder.workshopDesc"),
+    cta: t("ladder.workshopCta"),
+    price: "99€+",
+  },
+  {
+    title: t("ladder.coachingTitle"),
+    description: t("ladder.coachingDesc"),
+    cta: t("ladder.coachingCta"),
+    price: "Individuell",
+  },
+];
 ---
 
-<Landing title="Patchwork Heroes" description="patchworkheroes.de — bald verfügbar" lang="de" schema={schema}>
-  <section class="flex min-h-screen items-center justify-center">
-    <h1 class="text-4xl">Patchwork Heroes</h1>
-  </section>
+<Landing title="Patchwork Heroes" description={t("hero.subline")} lang="de" schema={schema}>
+  <HeroSection
+    headline1={t("hero.headline1")}
+    headline2={t("hero.headline2")}
+    subline={t("hero.subline")}
+    ctaPrimary={t("hero.ctaPrimary")}
+    ctaSecondary={t("hero.ctaSecondary")}
+  />
+  <UspSection heading={t("usp.heading")} pillars={pillars} />
+  <AboutSection heading={t("about.heading")} body={t("about.body")} />
+  <ProductLadder heading={t("ladder.heading")} offers={offers} />
+  <AudioTeaser
+    heading={t("audioTeaser.heading")}
+    subline={t("audioTeaser.subline")}
+    title={t("audioTeaser.title")}
+    description={t("audioTeaser.description")}
+    cta={t("audioTeaser.cta")}
+    src="/audio/ankommen-preview.mp3"
+  />
+  <FinalCtaSection
+    heading={t("finalCta.heading")}
+    subline={t("finalCta.subline")}
+    buttonLabel={t("newsletter.submit")}
+    privacy={t("finalCta.privacy")}
+  />
 </Landing>
