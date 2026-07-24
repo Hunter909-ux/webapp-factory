@@ -1,29 +1,59 @@
 ---
-/**
- * Landing layout — full-width sections, no sidebar.
- * Header/Footer come from the shared component library.
- */
 import Footer from "@webapp-factory/shared/components/Footer.astro";
 import Header from "@webapp-factory/shared/components/Header.astro";
+/**
+ * Landing layout — full-width sections, no sidebar.
+ * Renders the shared Header/Footer and injects SEOHead with hreflangs.
+ */
+import SEOHead from "@webapp-factory/shared/components/SEOHead.astro";
+import { getLanguageLinks, localizePath } from "@webapp-factory/shared/i18n";
 import Base from "./Base.astro";
 
 interface Props {
   title: string;
   description?: string;
   lang?: string;
+  ogImage?: string;
+  schema?: object | object[];
+  noindex?: boolean;
 }
 
-const { title, description, lang = "en" } = Astro.props;
+const { title, description, lang = "en", ogImage, schema, noindex } = Astro.props;
 
-/** Language variants of the landing page (Issue #11 refines per-page links). */
-const languages = [
-  { code: "en", label: "EN", href: "/" },
-  { code: "de", label: "DE", href: "/de/" },
-];
+const locales = ["en", "de"] as const;
+const defaultLocale = "en";
+const localeLabels: Record<string, string> = { en: "EN", de: "DE" };
+const site = Astro.site?.toString() ?? "https://muscar.ai";
+
+/** Canonical URL for the current locale. */
+const canonical = new URL(Astro.url.pathname, site).toString();
+
+/** Alternate language URLs including x-default. */
+const alternates = locales.map((locale) => ({
+  lang: locale,
+  href: new URL(localizePath(Astro.url.pathname, locale, defaultLocale), site).toString(),
+}));
+const xDefaultHref = new URL(
+  localizePath(Astro.url.pathname, defaultLocale, defaultLocale),
+  site,
+).toString();
+
+const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, defaultLocale);
 ---
 
 <Base title={title} description={description} lang={lang}>
-  <slot name="head" slot="head" />
+  <SEOHead
+    slot="head"
+    title={title}
+    description={description ?? ""}
+    canonical={canonical}
+    ogImage={ogImage}
+    locale={lang}
+    alternates={alternates}
+    xDefaultHref={xDefaultHref}
+    schema={schema}
+    noindex={noindex}
+  />
   <Header languages={languages} currentLocale={lang}>
     <a slot="logo" href={lang === "de" ? "/de/" : "/"}>muscar.ai</a>
   </Header>
@@ -32,3 +62,4 @@ const languages = [
   </main>
   <Footer copyrightName="muscar.ai" />
 </Base>
+

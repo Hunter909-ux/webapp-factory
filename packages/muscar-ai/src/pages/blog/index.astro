@@ -11,12 +11,8 @@ const POSTS_PER_PAGE = 10;
 const page = Number(Astro.url.searchParams.get("page")) || 1;
 
 let posts: Awaited<ReturnType<typeof cms.getPosts>> = [];
-let totalPages = 1;
 try {
   posts = await cms.getPosts({ limit: POSTS_PER_PAGE, page });
-  // Ghost's response includes pagination, but for safety we keep a simple
-  // conservative page count until the adapter exposes meta.
-  totalPages = posts.length === POSTS_PER_PAGE ? page + 1 : page;
 } catch {
   // SSG must not fail when Ghost has no posts or the API key is missing.
   posts = [];

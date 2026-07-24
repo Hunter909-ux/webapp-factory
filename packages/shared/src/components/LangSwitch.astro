@@ -6,18 +6,13 @@
 
 /** One selectable language. */
 interface Language {
-  /** Locale code, e.g. "de". */
   code: string;
-  /** Visible label, e.g. "DE". */
   label: string;
-  /** URL of the current page in that language. */
   href: string;
 }
 
 interface Props {
-  /** All languages including the current one. */
   languages: Language[];
-  /** Locale code of the current page. */
   current: string;
 }
 

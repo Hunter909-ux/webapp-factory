@@ -1,28 +1,54 @@
 ---
-/**
- * Blog layout — typography-focused reading column (max 720px).
- */
 import Footer from "@webapp-factory/shared/components/Footer.astro";
 import Header from "@webapp-factory/shared/components/Header.astro";
+/**
+ * Blog layout — typography-focused reading column (max 720px).
+ * Renders the shared Header/Footer and injects SEOHead with hreflangs.
+ */
+import SEOHead from "@webapp-factory/shared/components/SEOHead.astro";
+import { getLanguageLinks, localizePath } from "@webapp-factory/shared/i18n";
 import Base from "./Base.astro";
 
 interface Props {
   title: string;
   description?: string;
   lang?: string;
+  ogImage?: string;
+  schema?: object | object[];
+  noindex?: boolean;
 }
 
-const { title, description, lang = "de" } = Astro.props;
+const { title, description, lang = "de", ogImage, schema, noindex } = Astro.props;
 
-/** Language variants (Issue #11 refines per-page links). */
-const languages = [
-  { code: "de", label: "DE", href: "/blog/" },
-  { code: "en", label: "EN", href: "/en/blog/" },
-];
+const locales = ["de", "en"] as const;
+const defaultLocale = "de";
+const localeLabels: Record<string, string> = { de: "DE", en: "EN" };
+const site = Astro.site?.toString() ?? "https://patchworkheroes.de";
+const canonical = new URL(Astro.url.pathname, site).toString();
+const alternates = locales.map((locale) => ({
+  lang: locale,
+  href: new URL(localizePath(Astro.url.pathname, locale, defaultLocale), site).toString(),
+}));
+const xDefaultHref = new URL(
+  localizePath(Astro.url.pathname, defaultLocale, defaultLocale),
+  site,
+).toString();
+const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, defaultLocale);
 ---
 
 <Base title={title} description={description} lang={lang}>
-  <slot name="head" slot="head" />
+  <SEOHead
+    slot="head"
+    title={title}
+    description={description ?? ""}
+    canonical={canonical}
+    ogImage={ogImage}
+    locale={lang}
+    alternates={alternates}
+    xDefaultHref={xDefaultHref}
+    schema={schema}
+    noindex={noindex}
+  />
   <Header languages={languages} currentLocale={lang}>
     <a slot="logo" href={lang === "en" ? "/en/" : "/"}>Patchwork Heroes</a>
   </Header>
@@ -31,3 +57,4 @@ const languages = [
   </main>
   <Footer copyrightName="Patchwork Heroes" />
 </Base>
+

@@ -12,7 +12,7 @@ interface NavLink {
   href: string;
 }
 
-/** One selectable language (passed through to LangSwitch). */
+/** One selectable language. */
 interface Language {
   code: string;
   label: string;
@@ -39,7 +39,7 @@ const { navLinks = [], languages = [], currentLocale = "en" } = Astro.props;
     {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
   </nav>
   <div class="flex items-center gap-3">
-    {languages.length > 0 && <LangSwitch languages={languages} current={currentLocale} />}
+    {languages.length > 1 && <LangSwitch languages={languages} current={currentLocale} />}
     <ThemeToggle />
   </div>
 </header>

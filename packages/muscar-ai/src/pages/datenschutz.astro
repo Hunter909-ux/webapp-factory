@@ -1,9 +1,8 @@
 ---
-import { getEntry } from "astro:content";
 /**
  * Datenschutz — DSGVO compliant legal page, excluded from search engines.
  */
-import SEOHead from "@webapp-factory/shared/components/SEOHead.astro";
+import { getEntry } from "astro:content";
 import Landing from "../layouts/Landing.astro";
 
 const entry = await getEntry("legal", "datenschutz");
@@ -11,17 +10,9 @@ if (!entry) {
   throw new Error("Legal entry 'datenschutz' not found");
 }
 const { Content } = await entry.render();
-const canonical = `${Astro.site?.toString() ?? "https://muscar.ai"}datenschutz/`;
 ---
 
-<Landing title={entry.data.title} description={entry.data.description} lang="de">
-  <SEOHead
-    slot="head"
-    title={entry.data.title}
-    description={entry.data.description ?? ""}
-    canonical={canonical}
-    noindex
-  />
+<Landing title={entry.data.title} description={entry.data.description} lang="de" noindex>
   <div class="prose mx-auto py-12">
     <Content />
   </div>
