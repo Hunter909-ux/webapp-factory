@@ -16,9 +16,18 @@ interface Props {
   ogImage?: string;
   schema?: object | object[];
   noindex?: boolean;
+  copyrightName?: string;
 }
 
-const { title, description, lang = "en", ogImage, schema, noindex } = Astro.props;
+const {
+  title,
+  description,
+  lang = "en",
+  ogImage,
+  schema,
+  noindex,
+  copyrightName = "muscar.ai",
+} = Astro.props;
 
 const locales = ["en", "de"] as const;
 const defaultLocale = "en";
@@ -62,6 +71,12 @@ const languages = getLanguageLinks(Astro.url.pathname, locales, localeLabels, de
   <main class="w-full">
     <slot />
   </main>
-  <Footer copyrightName="muscar.ai" />
+  <Footer
+    copyrightName={copyrightName}
+    socialLinks={[
+      { label: "GitHub", href: "https://github.com/Hunter909-ux/webapp-factory" },
+      { label: "RSS", href: "/rss.xml" },
+    ]}
+  />
 </Base>
 

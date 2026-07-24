@@ -32,6 +32,9 @@ const defaultTheme = "dark";
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#1A1612" />
 
+    <!-- Plausible privacy-first analytics (Issue #21) -->
+    <script is:inline defer data-domain="muscar.ai" src="https://plausible.io/js/script.js"></script>
+
     <slot name="head" />
     <script is:inline>
       // Apply the persisted theme before first paint to avoid a flash.

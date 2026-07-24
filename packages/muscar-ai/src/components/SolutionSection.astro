@@ -1,0 +1,45 @@
+---
+/**
+ * Solution section — explains the Context Router in three steps.
+ * All copy is passed via props so the component stays language-agnostic.
+ */
+
+interface Step {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  heading: string;
+  body: string;
+  steps: Step[];
+}
+
+const { heading, body, steps } = Astro.props;
+---
+
+<section class="px-4 py-16">
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="mb-6 text-3xl">{heading}</h2>
+    <p class="mx-auto mb-12 max-w-2xl text-lg text-[var(--color-text-secondary)]">
+      {body}
+    </p>
+  </div>
+
+  <ol class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+    {
+      steps.map((step, index) => (
+        <li class="flex flex-col gap-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-surface)] p-6">
+          <span
+            class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary)] text-sm font-bold text-[var(--color-text-on-primary)]"
+            aria-hidden="true"
+          >
+            {index + 1}
+          </span>
+          <h3 class="text-xl">{step.title}</h3>
+          <p class="text-[var(--color-text-secondary)]">{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>

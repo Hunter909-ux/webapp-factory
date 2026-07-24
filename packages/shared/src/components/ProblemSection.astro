@@ -18,19 +18,28 @@ interface Props {
 }
 
 const { heading, painPoints } = Astro.props;
+const [first, second, third] = painPoints;
 ---
 
 <section class="px-4 py-16">
   <h2 class="mb-10 text-center text-3xl">{heading}</h2>
   <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
-    {
-      painPoints.map((point, index) => (
-        <article class="flex flex-col items-center gap-3 text-center">
-          <slot name={`icon-${index + 1}`} />
-          <h3 class="text-xl">{point.title}</h3>
-          <p class="text-[var(--color-text-secondary,#555)]">{point.text}</p>
-        </article>
-      ))
-    }
+    <article class="flex flex-col items-center gap-3 text-center">
+      <slot name="icon-1" />
+      <h3 class="text-xl">{first?.title ?? ""}</h3>
+      <p class="text-[var(--color-text-secondary,#555)]">{first?.text ?? ""}</p>
+    </article>
+
+    <article class="flex flex-col items-center gap-3 text-center">
+      <slot name="icon-2" />
+      <h3 class="text-xl">{second?.title ?? ""}</h3>
+      <p class="text-[var(--color-text-secondary,#555)]">{second?.text ?? ""}</p>
+    </article>
+
+    <article class="flex flex-col items-center gap-3 text-center">
+      <slot name="icon-3" />
+      <h3 class="text-xl">{third?.title ?? ""}</h3>
+      <p class="text-[var(--color-text-secondary,#555)]">{third?.text ?? ""}</p>
+    </article>
   </div>
 </section>
