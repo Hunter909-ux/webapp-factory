@@ -1,10 +1,12 @@
 /*
- * Brand tokens for muscar.ai — Agent 2 fills colors in Issue #14.
- * Font definitions are already included here so the shared typography works.
+ * Brand tokens for muscar.ai — Issue #14.
+ * All values come from BMAD Design System §2 (muscar.ai design tokens).
+ * Dark mode is the default brand expression ("Waldnacht").
+ * Light mode is available via data-theme="light".
  */
 
 /* --------------------------------------------------------------------------
- * Font faces — self-hosted WOFF2 variable fonts (Issue #10)
+ * Font faces — self-hosted WOFF2 variable fonts (Issue #10).
  * -------------------------------------------------------------------------- */
 
 @font-face {
@@ -32,11 +34,100 @@
 }
 
 /* --------------------------------------------------------------------------
- * Brand-specific font overrides (Design System §4.4)
+ * Brand typeface tokens.
+ * These override the shared theme defaults so Fraunces/Inter/JetBrains Mono
+ * are used everywhere on muscar.ai.
  * -------------------------------------------------------------------------- */
 
 :root {
   --font-heading: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+}
+
+/* --------------------------------------------------------------------------
+ * Dark mode as the default experience.
+ * -------------------------------------------------------------------------- */
+
+:root,
+:root:not([data-theme="light"]) {
+  /* Primary palette — Spore Red */
+  --color-primary: #c84b31;
+  --color-primary-hover: #e8734a;
+  --color-primary-muted: #8b3422;
+
+  /* Backgrounds — Forest Floor, Bark, Humus */
+  --color-bg: #1a1612;
+  --color-bg-surface: #2a2420;
+  --color-bg-elevated: #352e29;
+
+  /* Text — Birch White, Ash, Mycel Grey */
+  --color-text: #f0ede8;
+  --color-text-secondary: #b8afa8;
+  --color-text-muted: #8b8178;
+  --color-text-on-primary: #f0ede8;
+
+  /* Accents */
+  --color-accent: #d4a853;
+  --color-success: #4a7c59;
+  --color-warning: #c4823a;
+  --color-error: #c84b31;
+
+  /* Borders */
+  --color-border: #3d3530;
+  --color-border-light: #4a3f38;
+
+  /* Links */
+  --color-link: #8ab4f8;
+  --color-link-hover: #aecbfa;
+
+  /* Design-system aliases (so both naming conventions work) */
+  --color-bg-base: #1a1612;
+  --color-bg-surface: #2a2420;
+  --color-bg-elevated: #352e29;
+  --color-text-primary: #f0ede8;
+  --color-text-dark: #2d2319;
+}
+
+/* --------------------------------------------------------------------------
+ * Light mode — Myzel Cream / Birch White.
+ * -------------------------------------------------------------------------- */
+
+:root[data-theme="light"] {
+  /* Primary palette */
+  --color-primary: #c84b31;
+  --color-primary-hover: #e8734a;
+  --color-primary-muted: #8b3422;
+
+  /* Backgrounds */
+  --color-bg: #f5f0eb;
+  --color-bg-surface: #fdfaf7;
+  --color-bg-elevated: #ffffff;
+
+  /* Text */
+  --color-text: #2d2319;
+  --color-text-secondary: #5d534a;
+  --color-text-muted: #8b8178;
+  --color-text-on-primary: #f0ede8;
+
+  /* Accents */
+  --color-accent: #b8933f;
+  --color-success: #4a7c59;
+  --color-warning: #c4823a;
+  --color-error: #c84b31;
+
+  /* Borders */
+  --color-border: #e5ddd5;
+  --color-border-light: #f0ebe4;
+
+  /* Links */
+  --color-link: #1d4ed8;
+  --color-link-hover: #1e3a8a;
+
+  /* Design-system aliases */
+  --color-bg-base: #f5f0eb;
+  --color-bg-surface: #fdfaf7;
+  --color-bg-elevated: #ffffff;
+  --color-text-primary: #2d2319;
+  --color-text-dark: #2d2319;
 }
