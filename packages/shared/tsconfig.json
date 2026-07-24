@@ -1,0 +1,5 @@
+{
+  // Package-level TypeScript config — inherits strict settings from the root.
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*.ts"]
+}

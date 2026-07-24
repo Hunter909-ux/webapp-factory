@@ -1,0 +1,3 @@
+# pnpm workspaces — all packages live under packages/* (ADR-W2: no Turborepo)
+packages:
+  - "packages/*"

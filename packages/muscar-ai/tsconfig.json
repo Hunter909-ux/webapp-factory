@@ -1,0 +1,6 @@
+{
+  // Package-level TypeScript config — inherits strict settings from the root.
+  // Astro-specific settings are added in Issue #5.
+  "extends": "../../tsconfig.base.json",
+  "include": ["src/**/*.ts", "src/**/*.astro"]
+}

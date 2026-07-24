@@ -1,0 +1,19 @@
+{
+  "name": "@webapp-factory/patchworkheroes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "patchworkheroes.de â€” Astro instance of the webapp-factory template",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@webapp-factory/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

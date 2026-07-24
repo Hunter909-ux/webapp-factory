@@ -1,0 +1,22 @@
+{
+  "name": "@webapp-factory/shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared code: CMS capability ports, adapters, SEO/i18n/legal helpers",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cms/ports": "./src/cms/ports.ts",
+    "./cms/adapters/ghost": "./src/cms/adapters/ghost.ts",
+    "./seo": "./src/seo.ts",
+    "./i18n": "./src/i18n.ts",
+    "./legal": "./src/legal.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
