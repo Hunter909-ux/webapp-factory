@@ -1,5 +1,6 @@
-{
-  // Package-level TypeScript config — inherits strict settings from the root.
+﻿{
+  // Package-level TypeScript config â€” inherits strict settings from the root.
   "extends": "../../tsconfig.base.json",
-  "include": ["src/**/*.ts"]
+  "compilerOptions": { "allowImportingTsExtensions": true },
+  "include": ["src/**/*.ts", "tests/**/*.ts"]
 }
