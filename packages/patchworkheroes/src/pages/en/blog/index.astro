@@ -1,0 +1,39 @@
+---
+/**
+ * EN blog index â€” paginated post listing.
+ */
+import BlogCard from "@webapp-factory/shared/components/BlogCard.astro";
+import Landing from "../../../layouts/Landing.astro";
+import { cms } from "../../../lib/cms";
+
+const POSTS_PER_PAGE = 10;
+const page = Number(Astro.url.searchParams.get("page")) || 1;
+
+let posts: Awaited<ReturnType<typeof cms.getPosts>> = [];
+try {
+  posts = await cms.getPosts({ limit: POSTS_PER_PAGE, page });
+} catch {
+  posts = [];
+}
+---
+
+<Landing title="Blog â€” Patchwork Heroes" description="Latest posts from Patchwork Heroes" lang="en">
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <h1 class="mb-8 text-4xl">Blog</h1>
+    {
+      posts.length === 0 ? (
+        <p class="text-[var(--color-text-secondary)]">
+          No posts yet. New content will appear here once Ghost is connected.
+        </p>
+      ) : (
+        <ul class="grid gap-6">
+          {posts.map((post) => (
+            <li>
+              <BlogCard post={post} href={`/en/blog/${post.slug}/`} dateLocale="en-US" />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Landing>

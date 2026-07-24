@@ -1,0 +1,53 @@
+---
+/**
+ * EN blog index â€” paginated post listing.
+ * Tolerates a missing/misconfigured Ghost instance by rendering an empty list.
+ */
+import BlogCard from "@webapp-factory/shared/components/BlogCard.astro";
+import Landing from "../../layouts/Landing.astro";
+import { cms } from "../../lib/cms";
+
+const POSTS_PER_PAGE = 10;
+const page = Number(Astro.url.searchParams.get("page")) || 1;
+
+let posts: Awaited<ReturnType<typeof cms.getPosts>> = [];
+let totalPages = 1;
+try {
+  posts = await cms.getPosts({ limit: POSTS_PER_PAGE, page });
+  // Ghost's response includes pagination, but for safety we keep a simple
+  // conservative page count until the adapter exposes meta.
+  totalPages = posts.length === POSTS_PER_PAGE ? page + 1 : page;
+} catch {
+  // SSG must not fail when Ghost has no posts or the API key is missing.
+  posts = [];
+}
+---
+
+<Landing title="Blog â€” muscar.ai" description="Latest posts from muscar.ai" lang="en">
+  <section class="mx-auto max-w-5xl px-4 py-12">
+    <h1 class="mb-8 text-4xl">Blog</h1>
+    {
+      posts.length === 0 ? (
+        <p class="text-[var(--color-text-secondary)]">
+          No posts yet. New content will appear here once Ghost is connected.
+        </p>
+      ) : (
+        <ul class="grid gap-6">
+          {posts.map((post) => (
+            <li>
+              <BlogCard post={post} href={`/blog/${post.slug}/`} dateLocale="en-US" />
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <div class="mt-10 flex justify-between">
+      {page > 1 && <a href={`?page=${page - 1}`}>â† Previous</a>}
+      {posts.length === POSTS_PER_PAGE && (
+        <a href={`?page=${page + 1}`} class="ml-auto">
+          Next â†’
+        </a>
+      )}
+    </div>
+  </section>
+</Landing>

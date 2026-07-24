@@ -1,0 +1,40 @@
+---
+/**
+ * EN blog post detail page — dynamic route driven by Ghost slugs.
+ * A synthetic "coming-soon" slug keeps the first SSG build from failing
+ * when Ghost has no posts yet.
+ */
+import Blog from "../../layouts/Blog.astro";
+import { cms } from "../../lib/cms";
+
+export async function getStaticPaths() {
+  let posts: { slug: string }[] = [];
+  try {
+    posts = await cms.getPosts({ limit: 100 });
+  } catch {
+    // Graceful fallback: no posts yet, so no paths to generate.
+  }
+  return posts.length > 0
+    ? posts.map((post) => ({ params: { slug: post.slug } }))
+    : [{ params: { slug: "coming-soon" } }];
+}
+
+const { slug } = Astro.params;
+const post = await cms.getPostBySlug(slug).catch(() => null);
+---
+
+<Blog title={post?.title ?? "Post not found"} description={post?.excerpt ?? ""} lang="en">
+  {
+    post ? (
+      <article class="prose py-12">
+        <h1>{post.title}</h1>
+        {post.feature_image && <img src={post.feature_image} alt={post.title} />}
+        <Fragment set:html={post.html} />
+      </article>
+    ) : (
+      <p class="py-12 text-[var(--color-text-secondary)]">
+        This post could not be loaded. It may not exist yet.
+      </p>
+    )
+  }
+</Blog>
