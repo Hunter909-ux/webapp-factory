@@ -1,22 +1,7 @@
 /*
- * Structural base styles for muscar.ai — no brand identity in this file.
- * Brand colors/fonts come exclusively from CSS custom properties (tokens.css).
+ * muscar.ai structural base + brand token override.
+ * Order matters: tokens.css overrides shared theme variables, then base.css
+ * imports the shared structural styles.
  */
-@import "tailwindcss";
-
-/* Font-face declarations are added in Issue #10 (self-hosted WOFF2). */
-
-body {
-  background-color: var(--color-bg, #ffffff);
-  color: var(--color-text, #1a1a1a);
-  font-family: var(--font-body, system-ui, sans-serif);
-  line-height: var(--leading-normal, 1.6);
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-heading, Georgia, serif);
-  line-height: var(--leading-tight, 1.2);
-}
+@import "./tokens.css";
+@import "@webapp-factory/shared/styles/base.css";

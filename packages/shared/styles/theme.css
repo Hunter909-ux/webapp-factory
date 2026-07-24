@@ -1,0 +1,139 @@
+/*
+ * Shared semantic theme tokens (Issue #7).
+ *
+ * Each brand only overrides the bare minimum in its own tokens.css:
+ * colors, fonts, and any brand-specific spacings. Structural values live
+ * here and never need duplication.
+ *
+ * Dark and light themes are selected via :root[data-theme].
+ */
+
+/* --------------------------------------------------------------------------
+ * Structural tokens (neutral, not brand-specific)
+ * -------------------------------------------------------------------------- */
+
+:root {
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Border radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Typography scale (Major Third, base 16px) */
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.563rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --text-4xl: 3.052rem;
+
+  /* Line heights */
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Z-Index scale */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+}
+
+/* --------------------------------------------------------------------------
+ * Semantic color tokens — light mode defaults
+ * -------------------------------------------------------------------------- */
+
+:root,
+:root[data-theme="light"] {
+  --color-primary: #333333;
+  --color-primary-hover: #555555;
+  --color-primary-muted: #666666;
+
+  --color-bg: #ffffff;
+  --color-bg-surface: #f7f7f7;
+  --color-bg-elevated: #ffffff;
+
+  --color-text: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-muted: #777777;
+  --color-text-on-primary: #ffffff;
+
+  --color-accent: #d4a853;
+  --color-success: #4a7c59;
+  --color-warning: #c4823a;
+  --color-error: #c84b31;
+
+  --color-border: #e5e5e5;
+  --color-border-light: #f0f0f0;
+
+  --color-link: #2563eb;
+  --color-link-hover: #1d4ed8;
+}
+
+/* --------------------------------------------------------------------------
+ * Semantic color tokens — dark mode
+ * -------------------------------------------------------------------------- */
+
+:root[data-theme="dark"] {
+  --color-primary: #c84b31;
+  --color-primary-hover: #e8734a;
+  --color-primary-muted: #8b3422;
+
+  --color-bg: #1a1612;
+  --color-bg-surface: #2a2420;
+  --color-bg-elevated: #352e29;
+
+  --color-text: #f0ede8;
+  --color-text-secondary: #b8afa8;
+  --color-text-muted: #8b8178;
+  --color-text-on-primary: #ffffff;
+
+  --color-accent: #d4a853;
+  --color-success: #4a7c59;
+  --color-warning: #c4823a;
+  --color-error: #c84b31;
+
+  --color-border: #3d3530;
+  --color-border-light: #4a3f38;
+
+  --color-link: #93c5fd;
+  --color-link-hover: #bfdbfe;
+}
+
+/* --------------------------------------------------------------------------
+ * Font family fallbacks
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SF Mono", Consolas, "Fira Code", monospace;
+}
+
+/*
+ * @font-face declarations are injected per brand in Issue #10.
+ * After the font files are added, the :root --font-* tokens above can be
+ * overridden in packages/<brand>/src/styles/tokens.css.
+ */
